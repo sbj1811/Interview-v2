@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Interview</string>
+    <string name="chef_special">Chef\'s Special</string>
+    <string name="classic">Classic</string>
+    <string name="signature">Signature</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="vegetarian_tag">\u0020Vegetarian\u0020</string>
+    <string name="glutenfree_tag">\u0020Gluten Free\u0020</string>
+    <string name="list_image">list_image</string>
+    <string name="empty"></string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="add_to_order">ADD TO ORDER</string>
+    <string name="toppings">TOPPINGS</string>
+    <string name="add">ADD</string>
+    <string name="cart">Cart</string>
+    <string name="zero">0</string>
+    <string name="added">In Cart:\u0020</string>
+    <string name="spicy">SPICY</string>
+</resources>
