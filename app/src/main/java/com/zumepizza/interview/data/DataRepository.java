@@ -1,17 +1,11 @@
 package com.zumepizza.interview.data;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
-
 
 import com.zumepizza.interview.data.api.ApiConnection;
 import com.zumepizza.interview.data.local.PizzaItemDao;
-
 import com.zumepizza.interview.model.Pizza;
 import com.zumepizza.interview.model.PizzaItem;
-
-
 
 import java.util.List;
 
@@ -25,9 +19,8 @@ import retrofit2.Response;
 public class DataRepository {
 
     private static final String TAG = DataRepository.class.getSimpleName();
-
-    private PizzaItemDao pizzaItemDao;
     private static boolean gotDataFromApi;
+    private PizzaItemDao pizzaItemDao;
 
 
     public DataRepository(PizzaItemDao pizzaItemDao) {
@@ -35,13 +28,13 @@ public class DataRepository {
 
     }
 
-    public void getPizzaFromApi(){
+    public void getPizzaFromApi() {
         if (!gotDataFromApi) {
             ApiConnection.getApi().getPizzas().enqueue(new Callback<List<Pizza>>() {
                 @Override
                 public void onResponse(Call<List<Pizza>> call, Response<List<Pizza>> response) {
                     Pizza pizzas = response.body().get(0);
-                    if (pizzas !=null) {
+                    if (pizzas != null) {
                         Observable.fromCallable(() -> {
                             if (pizzas.getChefSChoice() != null) {
                                 for (PizzaItem item : pizzas.getChefSChoice()) {
@@ -92,15 +85,15 @@ public class DataRepository {
         item.setSpicy();
     }
 
-    public LiveData<List<PizzaItem>> getCategoryPizzaItemFromDb(Integer category){
+    public LiveData<List<PizzaItem>> getCategoryPizzaItemFromDb(Integer category) {
         return pizzaItemDao.getCategoryPizzaItems(category);
     }
 
-    public LiveData<PizzaItem> getPizzaItemWithIdFromDb(int id){
+    public LiveData<PizzaItem> getPizzaItemWithIdFromDb(int id) {
         return pizzaItemDao.getPizzaItemWithId(id);
     }
 
-    public void savePizzaItemToDb(PizzaItem pizzaItem){
+    public void savePizzaItemToDb(PizzaItem pizzaItem) {
         Observable.fromCallable(() -> {
             pizzaItemDao.save(pizzaItem);
             return false;
@@ -109,6 +102,10 @@ public class DataRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
 
+    }
+
+    public LiveData<List<String>> getAllQuantities() {
+        return pizzaItemDao.getAllQuantity();
     }
 
 }

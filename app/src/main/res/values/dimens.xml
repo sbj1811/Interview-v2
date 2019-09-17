@@ -6,4 +6,6 @@
     <dimen name="std_margin">16dp</dimen>
     <dimen name="std_padding">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="badge_count_textsize">12sp</dimen>
+    <dimen name="card_elevation">6dp</dimen>
 </resources>

@@ -1,26 +1,20 @@
 package com.zumepizza.interview.ui.details;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
+import android.os.Vibrator;
+import android.view.HapticFeedbackConstants;
+import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.zumepizza.interview.R;
-import com.zumepizza.interview.bindings.CreateDynomicTextView;
 import com.zumepizza.interview.databinding.ActivityDetailsBinding;
-import com.zumepizza.interview.model.Topping;
-import com.zumepizza.interview.ui.main.MainViewModel;
 import com.zumepizza.interview.utils.FactoryUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -35,7 +29,7 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         DetailsViewModelFactory factory = FactoryUtils.getDetailsViewModelFactory(this);
-        detailsViewModel = ViewModelProviders.of(this,factory).get(DetailsViewModel.class);
+        detailsViewModel = ViewModelProviders.of(this, factory).get(DetailsViewModel.class);
         detailsViewModel.init();
 
         if (savedInstanceState == null) {
@@ -57,6 +51,14 @@ public class DetailsActivity extends AppCompatActivity {
                 String quantity = button.getNumber();
                 detailsViewModel.saveQuantity(quantity);
             });
+            Vibrator vib = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+            binding.addToOrderBtn.setOnClickListener(click -> {
+                detailsViewModel.savePizzaItem(pizzaItem);
+                vib.vibrate(50);
+                binding.addToOrderBtn.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                Toast.makeText(this, this.getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            });
         });
 
 
@@ -67,7 +69,6 @@ public class DetailsActivity extends AppCompatActivity {
         outState.putInt(ID, id);
         super.onSaveInstanceState(outState);
     }
-
 
 
     @Override

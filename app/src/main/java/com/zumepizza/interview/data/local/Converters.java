@@ -5,8 +5,6 @@ import androidx.room.TypeConverter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zumepizza.interview.model.Assets;
-
-
 import com.zumepizza.interview.model.Classifications;
 import com.zumepizza.interview.model.Topping;
 

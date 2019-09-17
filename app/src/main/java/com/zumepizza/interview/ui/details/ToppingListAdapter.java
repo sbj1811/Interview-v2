@@ -1,9 +1,6 @@
 package com.zumepizza.interview.ui.details;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,9 +9,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zumepizza.interview.BR;
-import com.zumepizza.interview.model.PizzaItem;
 import com.zumepizza.interview.model.Topping;
-import com.zumepizza.interview.ui.main.MainViewModel;
 
 import java.util.List;
 
@@ -33,13 +28,13 @@ public class ToppingListAdapter extends RecyclerView.Adapter<ToppingListAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ViewDataBinding binding = DataBindingUtil.inflate(inflater,viewType,parent,false);
+        ViewDataBinding binding = DataBindingUtil.inflate(inflater, viewType, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(viewModel,position);
+        holder.bind(viewModel, position);
     }
 
     @Override
@@ -63,7 +58,7 @@ public class ToppingListAdapter extends RecyclerView.Adapter<ToppingListAdapter.
         this.toppings = result;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder  {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         final ViewDataBinding binding;
 
@@ -77,7 +72,6 @@ public class ToppingListAdapter extends RecyclerView.Adapter<ToppingListAdapter.
             binding.setVariable(BR.position, position);
             binding.executePendingBindings();
         }
-
 
 
     }

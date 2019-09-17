@@ -21,4 +21,9 @@ public interface PizzaItemDao {
     @Query("SELECT * FROM pizzaitems WHERE id = :id")
     LiveData<PizzaItem> getPizzaItemWithId(int id);
 
+    @Query("SELECT quantity FROM pizzaitems")
+    LiveData<List<String>> getAllQuantity();
+
+    @Query("SELECT * FROM pizzaitems")
+    List<PizzaItem> getPizzaItemForTest();
 }

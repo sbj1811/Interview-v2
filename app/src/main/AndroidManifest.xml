@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -16,12 +17,14 @@
             android:name=".ui.details.DetailsActivity"
             android:label=""
             android:parentActivityName=".ui.main.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/DetailTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zumepizza.interview.ui.main.MainActivity" />
         </activity>
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

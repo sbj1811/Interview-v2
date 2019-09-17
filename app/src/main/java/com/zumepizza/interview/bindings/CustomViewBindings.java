@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.zumepizza.interview.ui.main.MainActivity;
 
@@ -19,15 +18,13 @@ import java.util.List;
 
 public class CustomViewBindings {
     @BindingAdapter({"handler"})
-    public static void bindViewPagerAdapter(final ViewPager view, final MainActivity activity)
-    {
-        final FragmentSelectAdapter adapter = new FragmentSelectAdapter(activity.getSupportFragmentManager(),view.getContext(),4);
+    public static void bindViewPagerAdapter(final ViewPager view, final MainActivity activity) {
+        final FragmentSelectAdapter adapter = new FragmentSelectAdapter(activity.getSupportFragmentManager(), view.getContext(), 4);
         view.setAdapter(adapter);
     }
 
     @BindingAdapter({"pager"})
-    public static void bindViewPagerTabs(final TabLayout view, final ViewPager pagerView)
-    {
+    public static void bindViewPagerTabs(final TabLayout view, final ViewPager pagerView) {
         view.setupWithViewPager(pagerView, true);
     }
 
@@ -42,7 +39,7 @@ public class CustomViewBindings {
     @BindingAdapter("setToppingAdapter")
     public static void bindToppingRecyclerViewAdapter(RecyclerView recyclerView, RecyclerView.Adapter<?> adapter) {
         recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
         recyclerView.setAdapter(adapter);
     }
 
@@ -61,10 +58,10 @@ public class CustomViewBindings {
     }
 
     @BindingAdapter("createView")
-    public  static void createTextView(LinearLayout linearLayout, List<TextView> views){
+    public static void createTextView(LinearLayout linearLayout, List<TextView> views) {
         linearLayout.removeAllViews();
-        for (TextView view: views
-             ) {
+        for (TextView view : views
+        ) {
             linearLayout.addView(view);
         }
     }

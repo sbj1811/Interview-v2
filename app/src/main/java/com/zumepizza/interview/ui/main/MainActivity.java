@@ -1,25 +1,25 @@
 package com.zumepizza.interview.ui.main;
 
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.facebook.stetho.Stetho;
 import com.zumepizza.interview.R;
+import com.zumepizza.interview.bindings.CountDrawable;
 import com.zumepizza.interview.databinding.ActivityMainBinding;
-import com.zumepizza.interview.ui.details.DetailsViewModel;
 import com.zumepizza.interview.utils.FactoryUtils;
+
+import java.util.List;
 
 
 // * See "Instructions" text file
@@ -30,14 +30,13 @@ public class MainActivity extends AppCompatActivity {
     MainViewModel mainViewModel;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         MainViewModelFactory factory = FactoryUtils.getMainViewModelFactory(this);
-        mainViewModel = ViewModelProviders.of(this,factory).get(MainViewModel.class);
+        mainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
         mainViewModel.init();
         mainViewModel.getPizza();
 
@@ -57,27 +56,44 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        MenuItem item = menu.findItem(R.id.cart);
-        MenuItemCompat.setActionView(item, R.layout.actionbar_badge_layout);
-        View actionView = MenuItemCompat.getActionView(item);
-        TextView tv = (TextView) actionView.findViewById(R.id.cart_badge);
-        Log.e(TAG, "onCreateOptionsMenu: HERE");
-        mainViewModel.getTotalQuantity().observe(this, new Observer<String>() {
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        setCount(this, menu);
+        return true;
+    }
+
+    public void setCount(Context context, Menu menu) {
+        MenuItem menuItem = menu.findItem(R.id.cart);
+        LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
+        CountDrawable badge;
+
+        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_group_count);
+        if (reuse != null && reuse instanceof CountDrawable) {
+            badge = (CountDrawable) reuse;
+        } else {
+            badge = new CountDrawable(context);
+        }
+        mainViewModel.getTotalQuantity().observe(this, new Observer<List<String>>() {
             @Override
-            public void onChanged(String quantity) {
-                Log.e(TAG, "onChanged: HERE "+quantity);
-                tv.setText(quantity);
+            public void onChanged(List<String> strings) {
+                int c = 0;
+                for (String s : strings) {
+                    c += Integer.valueOf(s);
+                }
+                badge.setCount(String.valueOf(c));
             }
         });
-
-        return true;
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.ic_group_count, badge);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.cart) {
-            Log.e(TAG, "onOptionsItemSelected: HERE");
             return true;
         }
         return super.onOptionsItemSelected(item);

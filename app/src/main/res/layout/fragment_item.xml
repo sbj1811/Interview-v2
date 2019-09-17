@@ -40,8 +40,8 @@
             android:id="@+id/fragment_item_detail_ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/std_padding"
             android:layout_marginStart="@dimen/std_margin"
+            android:layout_marginTop="@dimen/std_padding"
             android:layout_marginEnd="@dimen/std_margin"
             android:layout_marginBottom="@dimen/std_padding"
             android:orientation="vertical"
@@ -67,10 +67,10 @@
                 android:ellipsize="none"
                 android:maxLines="100"
                 android:scrollHorizontally="false"
-                android:textColor="@color/light_grey"
-                android:textStyle="italic"
                 android:text="@{viewModel.getPizzaItem(position).getMenuDescription()}"
+                android:textColor="@color/light_grey"
                 android:textSize="@dimen/menu_description"
+                android:textStyle="italic"
                 tools:text="Premium pork seasoned like a traditional Mexican chorizo." />
 
             <LinearLayout
@@ -80,35 +80,35 @@
 
                 <TextView
                     android:id="@+id/fragment_item_vegetarian"
-                    android:layout_marginTop="@dimen/std_padding"
-                    android:layout_marginBottom="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_padding"
+                    android:layout_marginBottom="4dp"
                     android:background="@color/colorVegetarian"
-                    tools:text="Vegetarian"
-                    android:text="@{viewModel.getPizzaItem(position).getClassifications().getVegetarian() ? @string/vegetarian_tag : @string/empty}"/>
+                    android:text="@{viewModel.getPizzaItem(position).getClassifications().getVegetarian() ? @string/vegetarian_tag : @string/empty}"
+                    tools:text="@string/vegetarian" />
 
                 <TextView
                     android:id="@+id/fragment_item_glutenfree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/std_padding"
                     android:layout_marginTop="@dimen/std_padding"
                     android:layout_marginBottom="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:background="@color/light_grey"
-                    tools:text="Gluten Free"
-                    android:text="@{viewModel.getPizzaItem(position).getClassifications().getGlutenFree() ? @string/glutenfree_tag : @string/empty}"/>
+                    android:text="@{viewModel.getPizzaItem(position).getClassifications().getGlutenFree() ? @string/glutenfree_tag : @string/empty}"
+                    tools:text="@string/glutenfree_tag" />
 
                 <TextView
                     android:id="@+id/fragment_item_spicy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/std_padding"
                     android:layout_marginTop="@dimen/std_padding"
                     android:layout_marginBottom="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.getPizzaItem(position).getSpicy() ? @string/spicy : @string/empty}"
                     android:textColor="@color/colorPrimary"
-                    tools:text="Spicy"
-                    android:text="@{viewModel.getPizzaItem(position).getSpicy() ? @string/spicy : @string/empty}"/>
+                    tools:text="@string/spicy" />
 
             </LinearLayout>
 
@@ -122,28 +122,28 @@
                     android:id="@+id/fragment_item_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.getPizzaItem(position).getPrice()}"
                     android:textColor="@color/light_grey"
                     android:textStyle="bold"
-                    android:text="@{viewModel.getPizzaItem(position).getPrice()}"
                     tools:text="$10.99" />
 
                 <Button
                     android:id="@+id/add_button"
                     android:layout_width="64dp"
                     android:layout_height="36dp"
-                    android:layout_marginStart="@dimen/std_margin"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="@string/add"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:onClick="@{() -> viewModel.savePizzaItem(viewModel.getPizzaItem(position))}"/>
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/added_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@{viewModel.getPizzaItem(position).getQuantity().equals(@string/zero) ? @string/empty : @string/in_cart+viewModel.getPizzaItem(position).getQuantity()}"
                     android:textColor="@color/colorAccent"
-                    android:text="@{viewModel.getPizzaItem(position).getQuantity().equals(@string/zero) ? @string/empty : @string/added+viewModel.getPizzaItem(position).getQuantity()}"/>
+                    tools:text="In Cart: 45" />
 
             </LinearLayout>
 
